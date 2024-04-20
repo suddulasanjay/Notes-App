@@ -1,0 +1,91 @@
+Hey Notes! Node.js Here, I've created you , also thank Suddula Sanjay for starting this course!!
+Hey Notes! I'm Suddula Sanjay, I am new to Node.js, Hope I'll be mastering it soon...!
+
+The Code of the classes Exploring Node : 
+
+//Importing Core Modules
+const fs = require("fs");
+const name = "Suddula Sanjay";
+fs.writeFileSync(
+   "notes.txt",
+   `Hey Notes! Node.js Here, I've created you , also thank ${name} for starting this course!!`
+ );
+fs.appendFileSync(
+  "notes.txt",
+  `Hey Notes! I'm ${name}, I am new to Node.js, Hope I'll be mastering it soon...!`
+);
+
+//Importing Modules from Other .js Files
+const getNotes = require("./notes.js");
+console.log(getNotes());
+
+//Importing Modules (validator) from NPM
+const validator = require("validator");
+console.log(validator.isEmail("ss912015@student.nitw.ac.in"));
+
+//Importing chalk from NPM
+const chalk = require("chalk");
+console.log(
+  "Using the chalk Package : ",
+  chalk.green("Success !"),
+  chalk.green.bold("Success !"),
+  chalk.green.bold.inverse("Success !")
+);
+
+//Importing Nodemon
+console.log(
+  "Nodemon has been installed Globally using the 'npm i nodemon -g' command"
+);
+
+//Taking Arguments from the Terminal
+let args = process.argv[2];
+console.log(args);
+
+//Parsing the input from the Terminal
+const yargs = require("yargs");
+//Adding Commands
+yargs.command({
+  command: "add",
+  description: "Adding a Note",
+  builder: {
+    title: {
+      describe: "Note title",
+      demandOption: true,
+      type: "string",
+    },
+    body: {
+      describe: "Note body",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: function (argv) {
+    console.log("Adding a new Note !");
+    console.log("Title : " + argv.title);
+    console.log("Body : " + argv.body);
+  },
+});
+
+yargs.command({
+  command: "remove",
+  description: "Removing a Note",
+  handler: function () {
+    console.log("Removing a new Note !");
+  },
+});
+yargs.command({
+  command: "list",
+  description: "listing a Note",
+  handler: function () {
+    console.log("listing the Notes !");
+  },
+});
+yargs.command({
+  command: "read",
+  description: "Reading a Note",
+  handler: function () {
+    console.log("Reading a new Note !");
+  },
+});
+
+yargs.parse();
